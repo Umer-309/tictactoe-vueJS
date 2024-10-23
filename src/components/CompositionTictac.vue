@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
+interface ScoreBoard {
+  Jhon: number
+  Doe: number
+}
 
 const winner = ref<string | null>(null)
 const isTie = ref(false)
@@ -7,7 +11,7 @@ const gameover = ref(false)
 const currentPlayer = ref('X')
 const player = ref<string | null>(null)
 const undoStack = reactive<number[][]>([])
-const scoreBoard = reactive({
+const scoreBoard = reactive<ScoreBoard>({
   Jhon: 0,
   Doe: 0,
 })
@@ -58,7 +62,9 @@ const play = (row: number, col: number) => {
     board[row][col] = currentPlayer.value
     if (checkWin()) {
       winner.value = `${currentPlayer.value} by ${player.value}`
-      scoreBoard[player.value!]++
+      if (player.value === 'Jhon' || player.value === 'Doe') {
+        scoreBoard[player.value]++
+      }
     } else if (checkTie()) {
       isTie.value = true
     } else {
@@ -73,10 +79,8 @@ const reset = () => {
   currentPlayer.value = 'X'
   gameover.value = false
   player.value = null
-  scoreBoard = {
-    Jhon: 0,
-    Doe: 0,
-  }
+  scoreBoard.Jhon = 0
+  scoreBoard.Doe = 0
   board = [
     ['', '', ''],
     ['', '', ''],
