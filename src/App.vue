@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import CompositionTictac from './components/compositionTictac.vue'
+import CompositionTictac from './components/CompositionTictac.vue'
 
 export default defineComponent({
   components: {
